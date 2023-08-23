@@ -6,7 +6,7 @@
         groupTitle: 'File Management',
         groupIcon: 'fas fa-lg fa-file comp-files',
         title : 'HTML to Base64 @@var(name)@@',
-        icon : 'fad fa-lg fa-file-Base64 comp-files',
+        icon : 'fas fa-code fa-lg comp-files',
         dataScheme: [
             {name: 'FileName', type: 'text'},
             {name: 'FilePath', type: 'text'}

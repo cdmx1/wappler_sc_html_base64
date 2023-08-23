@@ -11,24 +11,27 @@ exports.ConvertToBase64 = async function (options) {
         await page.setContent(html, {
             waitUntil: 'networkidle2'
         });
-
-        // Generate PDF content as a buffer
-        const pdfBuffer = await page.pdf({
-            printBackground: true,
-            format: 'A4'
+    } else if (options.dataSource == 'URL') {
+        await page.goto(options.bodyURL, {
+            waitUntil: 'networkidle2'
         });
-
-        await browser.close();
-
-        // Convert the PDF buffer to a base64 encoded string
-        const pdfBase64 = pdfBuffer.toString('base64');
-
-        var response = {};
-        response.PDFBase64 = pdfBase64;
-        return response;
-    } else {
-        // Handle other cases here (e.g., URL)
-        await browser.close();
-        return null; // You can handle other data sources as needed
     }
+
+    // Hack to allow web fonts to load correctly
+    await page.screenshot();
+
+    // Generate PDF content as a buffer
+    const pdfBuffer = await page.pdf({
+        printBackground: true,
+        format: 'A4'
+    });
+
+    await browser.close();
+
+    // Convert the PDF buffer to a base64 encoded string
+    const pdfBase64 = pdfBuffer.toString('base64');
+
+    let response;
+    response = pdfBase64;
+    return response;
 }
